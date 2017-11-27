@@ -1,0 +1,8 @@
+.close{
+  color: #000;
+  font-family: fantasy;
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  font-size: 25px;
+}
