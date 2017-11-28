@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Guid from 'guid';
 import Avatar from './components/avatar';
 import ButtonAdd from './components/add-button';
 import Overview from './components/overview';
@@ -58,11 +59,12 @@ class Body extends Component{
 
 	addItem(){
 		let tmpItems = this.state.items;
+
 		tmpItems.push({
 			title: "Default Title",
 			description: "Default description",
-			status: false,
-			id: new Date().now
+			status: true,
+			id: Guid.create()
 		});
 
 		this.setState(
@@ -74,14 +76,19 @@ class Body extends Component{
 
 	deleteItem(id){
 		let tmpItems = this.state.items;
+		let sortArr = [];
 
-		tmpItems = tmpItems.filter((item) => {
-			return item.id === id;
+		console.log('deleteItem id '+ id);
+
+		sortArr = tmpItems.filter((item) => {
+			return !item.id.equals(id.toString());
 		});
+
+		console.log('sortArr '+ sortArr);
 
 		this.setState(
 				{
-					items: tmpItems
+					items: sortArr
 				}
 		);
 	}
@@ -94,17 +101,17 @@ class Body extends Component{
 
 					<ButtonAdd handleAddItem={this.addItem}/>
 
-					<Overview/>
+					<Overview overviewData={this.state.items}/>
 
 					<ul className="task-list">
 						{
 							this.state.items.map((item, index) =>
-									<Item key={index}
-									      title={item.title}
-									      description={item.description}
+									<Item key={item.id.toString()}
 									      status={item.status}
 									      handleRemoveItem={this.deleteItem}
-												id={item.id}/>
+												id={item.id.toString()}
+									      data={item}
+									/>
 							)
 						}
 					</ul>

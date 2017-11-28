@@ -9,9 +9,13 @@ class Item extends Component{
 		super(props);
 		this.componentName = "[Item]";
 
-		this.state = {};
+		this.state = {
+			enabled: this.props.data.status,
+
+		};
 
 		this.handleClick = this.handleClick.bind(this);
+		this.handleStatusClick = this.handleStatusClick.bind(this);
 
 		console.log(`${this.componentName} component constructor is called...`);
 	}
@@ -54,15 +58,31 @@ class Item extends Component{
 
 	////private methods
 	handleClick(){
-		this.props.handleRemoveItem(this.props.id);
+		this.props.handleRemoveItem(this.props.id.toString());
 	}
+
+	handleStatusClick(){
+		let status = this.state.enabled;
+		status = !status;
+
+		console.log('status '+status);
+
+		this.setState(
+				{
+					enabled: status
+				}
+		)
+	}
+
+
 
 	render(){
 		return(
-				<li className={"list-item " + (this.props.status ? "list__item--completed" : "")}>
+				<li className={"list-item " + (this.state.enabled ? "list__item--completed" : "")}
+					onClick={this.handleStatusClick}>
 					<span className="close" onClick={this.handleClick}>x</span>
-					<p className="item__title text-primary">{this.props.title}</p>
-					<p className="item__desc text-info">{this.props.description}</p>
+					<p className="item__title text-primary">{this.props.data.title}</p>
+					<p className="item__desc text-info">{this.props.data.description}</p>
 				</li>
 		)
 	}

@@ -48,8 +48,8 @@ class OverviewItem extends Component{
 	render(){
 		return(
 					<li className="task__item">
-						<p className="task__count text-success">17</p>
-						<p className="task__status text-info">Completed</p>
+						<p className="task__count text-success">{this.props.itemCount}</p>
+						<p className="task__status text-info">{this.props.itemStatus}</p>
 					</li>
 		)
 	}

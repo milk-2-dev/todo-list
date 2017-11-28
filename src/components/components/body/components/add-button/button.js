@@ -60,7 +60,9 @@ class ButtonAdd extends Component{
 
 	////private methods
 	handleClick(){
-		this.props.handleAddItem();
+		this.props.handleAddItem(this.props.id);
+
+		console.log('this,props.id ' + this.props.id)
 	}
 
 	render(){
